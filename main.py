@@ -3,6 +3,8 @@ from datetime import datetime
 from address_book import AddressBook
 from record import Record
 from fields import DATE_FORMAT
+from data_saver import data_saver
+
 
 def input_error(func):
   def inner(*args, **kwargs):
@@ -114,9 +116,12 @@ def show_all(book: AddressBook):
   return "\n".join(result)
 
 
+
+
+
 def main():
   print("Welcome to the assistant bot!")
-  book = AddressBook()
+  book = data_saver.load_data()
   
   # testing
   # print('Add contact')
@@ -202,6 +207,7 @@ def main():
     command, *args = parse_input(user_input)
 
     if command in ["close", "exit"]:
+      data_saver.save_data(book)
       print("Good bye!")
       break
     elif command == 'hello':
